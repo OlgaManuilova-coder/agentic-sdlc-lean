@@ -1,0 +1,166 @@
+{
+  "_doc": "Authority plane as code (lean edition, framework v1): what each stage agent may do, the maturity level each stage runs at, where a human must approve, and the sealed control plane. Read by the gate checker, the hooks and the orchestrator. Validate with `npm run policy:lint`. Spec: docs/v1-spec.md. THIS FILE IS A CONTROL-PLANE ASSET: agents cannot change it; a human seals it (`npm run control:seal`).",
+  "version": 2,
+  "edition": "lean",
+  "frameworkVersion": 1,
+  "baseBranch": "main",
+  "legacyChanges": {
+    "FEAT-001": "ae2cb566d2ba6db550952185caae91874784b88c4e8f6996f041bab0bd523139"
+  },
+  "_legacyDoc": "Changes delivered under framework v0, frozen by digest: judged by the frozen v0 rules only while their folder is exactly changes/<ID>/ and unchanged. Sealed.",
+  "humans": [
+    "olga.manuilova"
+  ],
+  "stages": {
+    "discover": {
+      "level": "L2",
+      "agent": "product-analyst",
+      "gate": "G1",
+      "artefact": "requirements.md",
+      "humanApproval": false
+    },
+    "design": {
+      "level": "L2",
+      "agent": "solution-architect",
+      "gate": "G2",
+      "artefact": "design.md",
+      "humanApproval": true
+    },
+    "build": {
+      "level": "L3",
+      "agent": "developer",
+      "gate": "G3",
+      "artefact": "build.md",
+      "humanApproval": false
+    },
+    "review": {
+      "level": "L3",
+      "agent": "independent-reviewer",
+      "gate": "G4",
+      "artefact": "review.md",
+      "humanApproval": false,
+      "independent": true
+    },
+    "verify": {
+      "level": "L3",
+      "agent": "verifier",
+      "gate": "G5",
+      "artefact": "verification.md",
+      "humanApproval": false
+    },
+    "release": {
+      "level": "L2",
+      "agent": "release-manager",
+      "gate": "G6",
+      "artefact": "release.md",
+      "humanApproval": true
+    },
+    "operate": {
+      "level": "L2",
+      "agent": "sre-operator",
+      "gate": "G7",
+      "artefact": "operate.md",
+      "humanApproval": false
+    }
+  },
+  "authority": {
+    "product-analyst": {
+      "write": [
+        "changes/"
+      ],
+      "read": [
+        "backlog/",
+        ".claude/knowledge/",
+        "app/"
+      ]
+    },
+    "solution-architect": {
+      "write": [
+        "changes/"
+      ],
+      "read": [
+        "changes/",
+        ".claude/knowledge/",
+        "app/"
+      ]
+    },
+    "developer": {
+      "write": [
+        "app/src/",
+        "app/test/",
+        "changes/"
+      ],
+      "read": [
+        "*"
+      ]
+    },
+    "independent-reviewer": {
+      "write": [
+        "changes/"
+      ],
+      "read": [
+        "changes/",
+        "app/",
+        ".claude/knowledge/"
+      ]
+    },
+    "verifier": {
+      "write": [
+        "changes/"
+      ],
+      "read": [
+        "*"
+      ]
+    },
+    "release-manager": {
+      "write": [
+        "changes/"
+      ],
+      "read": [
+        "*"
+      ]
+    },
+    "sre-operator": {
+      "write": [
+        "changes/"
+      ],
+      "read": [
+        "*"
+      ]
+    }
+  },
+  "enforcement": {
+    "codeRequiresApprovedDesign": true,
+    "forbidWeakenedTests": true,
+    "noPushToMain": true,
+    "noSelfMerge": true
+  },
+  "controlPlane": {
+    "_doc": "CR-04. Everything that constrains or instructs the agents, or decides a gate. Sealed by a human (`npm run control:seal`, human-only) and verified on every gate run, whatever tool changed a file. In CI, `npm run trust:check` verifies against the protected base branch that seal and approval changes were made by humans.",
+    "paths": [
+      "sdlc.policy.json",
+      "package.json",
+      "CLAUDE.md",
+      ".mcp.json",
+      ".github/",
+      ".claude/settings.json",
+      ".claude/hooks/",
+      ".claude/agents/",
+      ".claude/commands/",
+      ".claude/rules/",
+      ".claude/knowledge/",
+      "scripts/",
+      ".sdlc/templates/",
+      ".sdlc/tools.json",
+      ".sdlc/dependencies.json",
+      ".sdlc/context-sources.json"
+    ]
+  },
+  "trust": {
+    "_doc": "Local files can be rewritten by anyone with write access, agents included; the authoritative anchor is the code host: a protected base branch, required CODEOWNERS review and (recommended) signed commits. `npm run trust:check` enforces this in CI.",
+    "humanEmails": [
+      "OlgaManuilova-coder@users.noreply.github.com"
+    ],
+    "requireSignedHumanCommits": false
+  }
+}

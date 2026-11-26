@@ -1,0 +1,93 @@
+{
+  "enableAllProjectMcpServers": true,
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(git diff *)",
+      "Bash(git status)",
+      "Bash(git log *)",
+      "mcp__playwright-chrome",
+      "Bash(npm run control:check)",
+      "Bash(npm run manifest *)",
+      "Bash(npm run trace *)",
+      "Bash(npm run security:scan)",
+      "Bash(npm run rules:version)",
+      "Bash(npm run app:test)",
+      "Bash(npm run app:start)",
+      "Bash(npm run gates *)",
+      "Bash(npm run change:*)",
+      "Bash(npm run policy:lint)",
+      "Bash(npm run assess)",
+      "Bash(npm run trust:check*)"
+    ],
+    "ask": [
+      "Bash(git commit *)",
+      "Bash(git push *)"
+    ],
+    "deny": [
+      "Bash(npm run approve*)",
+      "Bash(node scripts/approve.mjs*)",
+      "Bash(git push * main*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git merge *)",
+      "Bash(rm *app/test*)",
+      "Edit(./sdlc.policy.json)",
+      "Write(./sdlc.policy.json)",
+      "Edit(./.claude/hooks/**)",
+      "Write(./.claude/hooks/**)",
+      "Edit(./.claude/settings.json)",
+      "Write(./.claude/settings.json)",
+      "Bash(npm run control:seal*)",
+      "Bash(node scripts/control-seal.mjs*)",
+      "Edit(./.sdlc/control-seal.json)",
+      "Write(./.sdlc/control-seal.json)",
+      "Edit(./scripts/lib/**)",
+      "Write(./scripts/lib/**)",
+      "Edit(./scripts/unit/**)",
+      "Write(./scripts/unit/**)",
+      "Edit(./.sdlc/templates/**)",
+      "Write(./.sdlc/templates/**)",
+      "Edit(./.sdlc/*.json)",
+      "Write(./.sdlc/*.json)",
+      "Bash(npm run gates * --no-write*)",
+      "Bash(node --test *)",
+      "Bash(node -e *)",
+      "Bash(node --eval *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/require-approved-design.mjs\""
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-tests.mjs\""
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-approvals.mjs\""
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-control-plane.mjs\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-control-plane.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}

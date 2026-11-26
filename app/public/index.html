@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoice Quote — demo app</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; color: #082B59; }
+  h1 { font-size: 28px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th, td { text-align: left; padding: 6px; border-bottom: 1px solid #E8F0F8; }
+  input { width: 100%; padding: 6px; box-sizing: border-box; }
+  button { padding: 8px 14px; margin-right: 8px; cursor: pointer; }
+  #totals div { display: flex; justify-content: space-between; max-width: 320px; padding: 4px 0; }
+  #error { color: #b00020; }
+</style>
+</head>
+<body>
+<h1>Invoice quote (AED, VAT 5%)</h1>
+<table>
+  <thead><tr><th>Description</th><th>Qty</th><th>Unit price</th></tr></thead>
+  <tbody id="lines"></tbody>
+</table>
+<button id="add" type="button">Add line</button>
+<button id="quote" type="button">Calculate</button>
+<p id="error" role="alert"></p>
+<section id="totals" aria-live="polite">
+  <div><span>Subtotal</span><strong id="subtotal">—</strong></div>
+  <div><span>VAT 5%</span><strong id="vat">—</strong></div>
+  <div><span>Total</span><strong id="total">—</strong></div>
+</section>
+<script>
+  const tbody = document.getElementById('lines');
+  function addLine(d = '', q = 1, p = 0) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><input aria-label="Description" value="${d}"></td><td><input aria-label="Quantity" type="number" min="1" value="${q}"></td><td><input aria-label="Unit price" type="number" step="0.01" min="0" value="${p}"></td>`;
+    tbody.appendChild(tr);
+  }
+  document.getElementById('add').onclick = () => addLine();
+  document.getElementById('quote').onclick = async () => {
+    const lines = [...tbody.rows].map((r) => {
+      const [d, q, p] = r.querySelectorAll('input');
+      return { description: d.value, quantity: Number(q.value), unitPrice: Number(p.value) };
+    });
+    const res = await fetch('/api/quote', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ lines }) });
+    const data = await res.json();
+    document.getElementById('error').textContent = res.ok ? '' : data.error;
+    for (const k of ['subtotal', 'vat', 'total']) document.getElementById(k).textContent = res.ok ? data[k].toFixed(2) : '—';
+  };
+  addLine('Consulting hour', 2, 450);
+</script>
+</body>
+</html>

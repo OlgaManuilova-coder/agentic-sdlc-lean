@@ -1,0 +1,19 @@
+Agentic SDLC Framework — lean edition (reference implementation)
+Copyright 2026 Olga Manuilova
+Head of Agentic Quality Engineering & AI-Native SDLC
+https://github.com/OlgaManuilova-coder/agentic-sdlc-lean
+https://www.linkedin.com/in/olga-manuylova/
+
+The Agentic SDLC Framework (seven stages and gates, five maturity levels, four control planes, the ten
+cross-cutting requirements of v1) and this reference implementation were designed and written by Olga
+Manuilova. The git history is the record of authorship.
+
+Code, scripts, configuration and agent/command definitions are licensed under the Apache License, Version 2.0
+(LICENSE). Under section 4(d), any redistribution of this work or of a derivative work must include a readable
+copy of the attribution notices in this NOTICE file. The framework documentation in docs/ is licensed under
+CC BY 4.0 (LICENSE-DOCS.md), which requires attribution as well.
+
+Credit it as: "Agentic SDLC Framework by Olga Manuilova" (with a link to the source above).
+
+Versions published before 1.0.0 were released under the MIT License.
+Agentic SDLC Enterprise is a separate, proprietary product and is not covered by these licenses.

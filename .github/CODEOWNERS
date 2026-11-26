@@ -1,0 +1,14 @@
+# © 2026 Olga Manuilova — Agentic SDLC Framework (lean edition). Keep this notice in all copies. https://github.com/OlgaManuilova-coder/agentic-sdlc-lean
+# CR-04 / CR-08 trust anchor: with branch protection "Require review from Code Owners" on main, no change to the
+# control plane, and no change record (with its human decisions), reaches main without the framework owner's review.
+# The seal and the approvals are only as trustworthy as this review: keep it required.
+
+/sdlc.policy.json        @OlgaManuilova-coder
+/package.json            @OlgaManuilova-coder
+/CLAUDE.md               @OlgaManuilova-coder
+/.mcp.json               @OlgaManuilova-coder
+/.github/                @OlgaManuilova-coder
+/.claude/                @OlgaManuilova-coder
+/scripts/                @OlgaManuilova-coder
+/.sdlc/                  @OlgaManuilova-coder
+/changes/                @OlgaManuilova-coder

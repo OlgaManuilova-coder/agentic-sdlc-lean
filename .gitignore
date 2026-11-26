@@ -1,0 +1,7 @@
+# © 2026 Olga Manuilova — Agentic SDLC Framework (lean edition). Keep this notice in all copies. https://github.com/OlgaManuilova-coder/agentic-sdlc-lean
+node_modules/
+results/
+.sdlc/current-change
+.claude/settings.local.json
+.env*
+.DS_Store

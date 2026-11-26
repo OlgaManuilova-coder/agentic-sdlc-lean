@@ -1,0 +1,209 @@
+{
+  "_doc": "CR-05 Tool & MCP trust boundaries. Every tool an agent may use: trust, read/write scope, data classes, side effects, approval policy, audit, revocation, and the stages that may use it. A sign-off's \"Tools:\" must be a subset of its stage's tools. `npm run policy:lint` fails if an MCP server in .mcp.json or an allowed tool in .claude/settings.json is missing here. CONTROL-PLANE ASSET (sealed).",
+  "tools": {
+    "Read": {
+      "trust": "builtin",
+      "read": [
+        "*"
+      ],
+      "write": [],
+      "dataClasses": [
+        "public",
+        "internal"
+      ],
+      "sideEffects": "none",
+      "approval": "none",
+      "audit": "session transcript",
+      "revocation": "settings deny",
+      "stages": [
+        "discover",
+        "design",
+        "build",
+        "review",
+        "verify",
+        "release",
+        "operate"
+      ]
+    },
+    "Grep": {
+      "trust": "builtin",
+      "read": [
+        "*"
+      ],
+      "write": [],
+      "dataClasses": [
+        "public",
+        "internal"
+      ],
+      "sideEffects": "none",
+      "approval": "none",
+      "audit": "session transcript",
+      "revocation": "settings deny",
+      "stages": [
+        "discover",
+        "design",
+        "build",
+        "review",
+        "verify",
+        "release",
+        "operate"
+      ]
+    },
+    "Glob": {
+      "trust": "builtin",
+      "read": [
+        "*"
+      ],
+      "write": [],
+      "dataClasses": [
+        "public",
+        "internal"
+      ],
+      "sideEffects": "none",
+      "approval": "none",
+      "audit": "session transcript",
+      "revocation": "settings deny",
+      "stages": [
+        "discover",
+        "design",
+        "build",
+        "review",
+        "verify",
+        "release",
+        "operate"
+      ]
+    },
+    "Write": {
+      "trust": "builtin",
+      "read": [],
+      "write": [
+        "per sdlc.policy.json authority"
+      ],
+      "dataClasses": [
+        "public",
+        "internal"
+      ],
+      "sideEffects": "repository files",
+      "approval": "hooks: design gate, test integrity, approval forgery, control plane",
+      "audit": "git history",
+      "revocation": "settings deny",
+      "stages": [
+        "discover",
+        "design",
+        "build",
+        "review",
+        "verify",
+        "release",
+        "operate"
+      ]
+    },
+    "Edit": {
+      "trust": "builtin",
+      "read": [],
+      "write": [
+        "per sdlc.policy.json authority"
+      ],
+      "dataClasses": [
+        "public",
+        "internal"
+      ],
+      "sideEffects": "repository files",
+      "approval": "hooks: design gate, test integrity, approval forgery, control plane",
+      "audit": "git history",
+      "revocation": "settings deny",
+      "stages": [
+        "discover",
+        "design",
+        "build",
+        "review",
+        "verify",
+        "release",
+        "operate"
+      ]
+    },
+    "Bash": {
+      "trust": "builtin",
+      "read": [
+        "*"
+      ],
+      "write": [
+        "per sdlc.policy.json authority"
+      ],
+      "dataClasses": [
+        "public",
+        "internal"
+      ],
+      "sideEffects": "local processes; allow-listed npm scripts (gates, trace, manifest, tests) and git read commands; writes limited by sdlc.policy.json authority",
+      "approval": "settings allow/ask/deny + control-plane shell hook",
+      "audit": "session transcript",
+      "revocation": "settings deny",
+      "stages": [
+        "discover",
+        "design",
+        "build",
+        "review",
+        "verify",
+        "release",
+        "operate"
+      ]
+    },
+    "Task": {
+      "trust": "builtin",
+      "read": [],
+      "write": [],
+      "dataClasses": [
+        "internal"
+      ],
+      "sideEffects": "starts a sub-agent (fan-out counts against the autonomy budget)",
+      "approval": "orchestrator only",
+      "audit": "session transcript",
+      "revocation": "settings deny",
+      "stages": [
+        "design",
+        "build",
+        "review",
+        "verify",
+        "release"
+      ]
+    },
+    "mcp__playwright-chrome": {
+      "trust": "third-party, pinned version",
+      "read": [
+        "the running demo app"
+      ],
+      "write": [],
+      "dataClasses": [
+        "public"
+      ],
+      "sideEffects": "browser actions against the local demo app only",
+      "approval": "none for the local app",
+      "audit": "results/browser screenshots",
+      "revocation": "remove from .mcp.json; settings deny",
+      "stages": [
+        "verify",
+        "operate"
+      ],
+      "failure": "verification falls back to API checks; the browser path is marked UNAVAILABLE, never PASS"
+    },
+    "git": {
+      "trust": "builtin CLI",
+      "read": [
+        "repository"
+      ],
+      "write": [
+        "commits under the agent's identity"
+      ],
+      "dataClasses": [
+        "internal"
+      ],
+      "sideEffects": "commits; push to main and merge are denied",
+      "approval": "commit and push ask a human",
+      "audit": "git history, identity:check",
+      "revocation": "settings deny",
+      "stages": [
+        "build",
+        "release"
+      ]
+    }
+  }
+}

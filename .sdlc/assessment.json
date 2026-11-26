@@ -1,0 +1,14 @@
+{
+  "_doc": "Self-assessment per docs/assessment.md. For each stage and each control plane, the highest level (0-4) whose criteria you FULLY meet. A stage's level is the minimum across its planes. Run `npm run assess`. These values describe THIS repository as shipped.",
+  "organisation": "agentic-sdlc-lean (template as shipped)",
+  "date": "2026-11-23",
+  "stages": {
+    "discover": { "identity": 3, "authority": 3, "enforcement": 3, "evidence": 3 },
+    "design":   { "identity": 3, "authority": 3, "enforcement": 2, "evidence": 3 },
+    "build":    { "identity": 3, "authority": 3, "enforcement": 3, "evidence": 3 },
+    "review":   { "identity": 3, "authority": 3, "enforcement": 3, "evidence": 3 },
+    "verify":   { "identity": 3, "authority": 3, "enforcement": 3, "evidence": 3 },
+    "release":  { "identity": 3, "authority": 3, "enforcement": 2, "evidence": 3 },
+    "operate":  { "identity": 0, "authority": 0, "enforcement": 0, "evidence": 0 }
+  }
+}

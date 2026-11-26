@@ -1,0 +1,74 @@
+{
+  "_doc": "CR-06 (lean): the agentic supply chain this repository depends on, each with its fallback. Documented here; the full edition also enforces tested fallbacks at release. Sealed control-plane asset.",
+  "dependencies": {
+    "model:claude-opus-5-5": {
+      "provider": "Anthropic",
+      "kind": "model",
+      "fallback": "model:claude-sonnet-5-5 for build/review; human for release decisions",
+      "fallbackTestedAt": "2026-11-25",
+      "failure": "stop the run; resume from the last passed gate (artefacts are the state)"
+    },
+    "model:claude-sonnet-5-5": {
+      "provider": "Anthropic",
+      "kind": "model",
+      "fallback": "human performs the stage with the same templates",
+      "fallbackTestedAt": "2026-11-25",
+      "failure": "stop the run"
+    },
+    "mcp__playwright-chrome": {
+      "provider": "@playwright/mcp 0.0.86 (npm)",
+      "kind": "mcp",
+      "fallback": "API verification + manual browser check recorded by a human",
+      "fallbackTestedAt": "2026-11-25",
+      "failure": "browser path UNAVAILABLE; G5 needs another independent path"
+    },
+    "Read": {
+      "provider": "Claude Code",
+      "kind": "builtin",
+      "fallback": "human",
+      "fallbackTestedAt": "2026-11-25"
+    },
+    "Grep": {
+      "provider": "Claude Code",
+      "kind": "builtin",
+      "fallback": "human",
+      "fallbackTestedAt": "2026-11-25"
+    },
+    "Glob": {
+      "provider": "Claude Code",
+      "kind": "builtin",
+      "fallback": "human",
+      "fallbackTestedAt": "2026-11-25"
+    },
+    "Write": {
+      "provider": "Claude Code",
+      "kind": "builtin",
+      "fallback": "human",
+      "fallbackTestedAt": "2026-11-25"
+    },
+    "Edit": {
+      "provider": "Claude Code",
+      "kind": "builtin",
+      "fallback": "human",
+      "fallbackTestedAt": "2026-11-25"
+    },
+    "Bash": {
+      "provider": "Claude Code",
+      "kind": "builtin",
+      "fallback": "human",
+      "fallbackTestedAt": "2026-11-25"
+    },
+    "Task": {
+      "provider": "Claude Code",
+      "kind": "builtin",
+      "fallback": "stages run sequentially by a human",
+      "fallbackTestedAt": "2026-11-25"
+    },
+    "git": {
+      "provider": "GitHub",
+      "kind": "code host",
+      "fallback": "local commits; push when the host is back",
+      "fallbackTestedAt": "2026-11-25"
+    }
+  }
+}

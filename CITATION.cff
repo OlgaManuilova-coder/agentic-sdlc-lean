@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use, present or teach this framework, please credit it as below."
+title: "Agentic SDLC · by Olga Manuilova (lean edition)"
+type: software
+authors:
+  - family-names: Manuilova
+    given-names: Olga
+license: Apache-2.0
+repository-code: "https://github.com/OlgaManuilova-coder/agentic-sdlc-lean"
+version: 1.0.0
+date-released: 2026-11-25
+keywords: [agentic SDLC, AI agents, software delivery, governance, Claude Code]

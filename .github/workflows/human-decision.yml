@@ -1,0 +1,52 @@
+# © 2026 Olga Manuilova — Agentic SDLC Framework (lean edition). Keep this notice in all copies. https://github.com/OlgaManuilova-coder/agentic-sdlc-lean
+# Human decisions by button (CR-04, CR-08): Actions → "Human decision" → Run workflow → pick → Run.
+# Runs only when the repository owner presses the button (github.triggering_actor). The commit is made in the
+# owner's name and cites the workflow run, so trust:check accepts it as a human commit.
+name: Human decision
+on:
+  workflow_dispatch:
+    inputs:
+      decision:
+        description: What do you decide?
+        type: choice
+        options: [seal controls, approve design, approve release]
+      change:
+        description: Which change (ignored for "seal controls")
+        type: choice
+        options: [SEC-001, IDEM-001, BUG-002]
+permissions:
+  contents: write
+jobs:
+  decide:
+    if: github.triggering_actor == github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Record the decision
+        env:
+          DECISION: ${{ inputs.decision }}
+          CHANGE: ${{ inputs.change }}
+        run: |
+          case "$DECISION" in
+            "seal controls")   npm run control:seal -- --as olga.manuilova ;;
+            "approve design")  npm run approve -- "$CHANGE" design --as olga.manuilova ;;
+            "approve release") npm run approve -- "$CHANGE" release --as olga.manuilova ;;
+          esac
+      - name: Commit in the owner's name
+        env:
+          DECISION: ${{ inputs.decision }}
+          CHANGE: ${{ inputs.change }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          git config user.name "Olga Manuilova"
+          git config user.email "OlgaManuilova-coder@users.noreply.github.com"
+          git add -A
+          MSG="$DECISION"; [ "$DECISION" != "seal controls" ] && MSG="$DECISION $CHANGE"
+          git commit -m "Human decision: $MSG" -m "Pressed by ${{ github.triggering_actor }} in $RUN_URL" || { echo "nothing to record"; exit 0; }
+          git push origin HEAD:main

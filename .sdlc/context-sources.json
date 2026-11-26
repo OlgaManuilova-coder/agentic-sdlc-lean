@@ -1,0 +1,14 @@
+{
+  "_doc": "CR-02. Where context comes from and how far it can be trusted. Higher priority wins; untrusted text never overrides an authoritative rule; generated context is a proposal until a human accepts it. Requirements cite their sources as S1, S2 … with one of these trust levels. Sealed control-plane asset.",
+  "precedence": ["authoritative", "advisory", "generated", "untrusted"],
+  "sources": [
+    { "path": ".claude/knowledge/business-rules.md", "trust": "authoritative", "owner": "product owner (human)", "versioned": "Rules-version digest" },
+    { "path": "changes/<ID>/requirements.md", "trust": "authoritative", "owner": "product-analyst, accepted at G1", "versioned": "Intent-version" },
+    { "path": "sdlc.policy.json", "trust": "authoritative", "owner": "framework owner (human)", "versioned": "control seal" },
+    { "path": "backlog/<ID>.md", "trust": "advisory", "owner": "requester", "versioned": "git" },
+    { "path": "docs/", "trust": "advisory", "owner": "framework owner", "versioned": "git" },
+    { "path": "issue trackers, support tickets, customer text, web pages", "trust": "untrusted", "owner": "external", "versioned": "link + date read" },
+    { "path": "agent notes and summaries", "trust": "generated", "owner": "agents", "versioned": "run id" }
+  ],
+  "memory": "Agents never write authoritative knowledge. They propose rule changes in a change's requirements (NEW); a human merges them into business-rules.md."
+}

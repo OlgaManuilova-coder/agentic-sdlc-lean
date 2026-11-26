@@ -1,0 +1,36 @@
+{
+  "change": "FEAT-001",
+  "checkedAt": "2026-11-23T15:16:08.956Z",
+  "results": [
+    {
+      "gate": "G1",
+      "status": "PASS",
+      "problems": []
+    },
+    {
+      "gate": "G2",
+      "status": "PASS",
+      "problems": []
+    },
+    {
+      "gate": "G3",
+      "status": "PASS",
+      "problems": []
+    },
+    {
+      "gate": "G4",
+      "status": "PASS",
+      "problems": []
+    },
+    {
+      "gate": "G5",
+      "status": "PASS",
+      "problems": []
+    },
+    {
+      "gate": "G6",
+      "status": "PASS",
+      "problems": []
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "agentic-sdlc-lean",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lean template of the Agentic SDLC Framework: stage agents, gates as code, policy as code, enforcement hooks and an evidence trail per change, on a runnable demo app.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "author": "Olga Manuilova",
+  "license": "(Apache-2.0 AND CC-BY-4.0)",
+  "scripts": {
+    "app:start": "node app/src/server.mjs",
+    "app:test": "node --test \"app/test/*.test.mjs\"",
+    "test": "node --test \"app/test/*.test.mjs\" \"scripts/unit/*.test.mjs\"",
+    "gates": "node scripts/gates.mjs",
+    "change:new": "node scripts/change.mjs new",
+    "change:artefact": "node scripts/change.mjs artefact",
+    "change:use": "node scripts/change.mjs use",
+    "change:status": "node scripts/change.mjs status",
+    "approve": "node scripts/approve.mjs",
+    "assess": "node scripts/assess.mjs",
+    "policy:lint": "node scripts/policy-lint.mjs",
+    "check": "npm run policy:lint && npm run control:check && npm test && npm run gates -- --all",
+    "control:seal": "node scripts/control-seal.mjs",
+    "control:check": "node scripts/control-seal.mjs --check",
+    "manifest": "node scripts/manifest.mjs",
+    "trace": "node scripts/trace.mjs",
+    "security:scan": "node scripts/security-scan.mjs",
+    "rules:version": "node -e \"import('./scripts/lib/gates.mjs').then(m=>console.log(m.rulesVersion()))\"",
+    "trust:check": "node scripts/trust-check.mjs"
+  }
+}

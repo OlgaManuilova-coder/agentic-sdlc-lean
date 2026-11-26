@@ -1,0 +1,34 @@
+# © 2026 Olga Manuilova — Agentic SDLC Framework (lean edition). Keep this notice in all copies. https://github.com/OlgaManuilova-coder/agentic-sdlc-lean
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_run:   # re-check main after the human decision button (its push does not trigger CI by itself)
+    workflows: [Human decision]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # trust:check compares with the base branch
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Policy lint
+        run: npm run policy:lint
+      - name: Control seal (every control-plane file matches the human seal)
+        run: npm run control:check
+      - name: Trust anchor (controls and human decisions changed only by humans; gate history append-only)
+        if: github.event_name == 'pull_request'
+        run: npm run trust:check -- --base "origin/${{ github.base_ref }}"
+      - name: App and framework tests
+        run: npm test
+      - name: Re-check every change's gates (evidence must still hold)
+        run: npm run gates -- --all
+      - name: Maturity snapshot
+        run: npm run assess
