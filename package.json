@@ -28,6 +28,7 @@
     "trace": "node scripts/trace.mjs",
     "security:scan": "node scripts/security-scan.mjs",
     "rules:version": "node -e \"import('./scripts/lib/gates.mjs').then(m=>console.log(m.rulesVersion()))\"",
-    "trust:check": "node scripts/trust-check.mjs"
+    "trust:check": "node scripts/trust-check.mjs",
+    "leak:scan": "node scripts/leak-scan.mjs"
   }
 }
