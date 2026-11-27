@@ -1,6 +1,6 @@
 {
   "sealedBy": "olga.manuilova",
-  "sealedAt": "2026-11-25",
+  "sealedAt": "2026-11-27",
   "files": {
     ".claude/agents/developer.md": "f81436f28e750a573f224b2655e5715cdbfea7b4fb7ac42e995b07322a8d2327",
     ".claude/agents/independent-reviewer.md": "997d2e038206bdc86e6f0daaa8a0482da1af442ca707341dd987ca82d9b1dae7",
@@ -27,6 +27,7 @@
     ".github/CODEOWNERS": "fe1c7ef039a0ca30dc0e8d3a208522f21a1cf57963ca5b623ed538f33ff74e98",
     ".github/workflows/ci.yml": "a83cb7df9957813c10479da69e460e1da981f461a18a634f453a5d0508859b47",
     ".github/workflows/human-decision.yml": "108e41bb050998894013bbbd75f144bee439d01cd924bc5db8f83944335acc4b",
+    ".github/workflows/leak-scan.yml": "a4db89a563f3faae1122e2d3a9d43c12966db7b2d9671939431b5768374f9cf3",
     ".mcp.json": "69daccbb0cf8ffd7aaaf3eb8ee3e0200bc50f022c82d4799d11dfb4b6ba00cc2",
     ".sdlc/context-sources.json": "e9e3d11489b0f42039d47845d4c5e4cb193a760958582f7076f09e7e2309c84d",
     ".sdlc/dependencies.json": "82fe6b9866e2b2916f46675432d0cfb6465cfdc6d252235d77babf3dcb834a35",
@@ -39,12 +40,13 @@
     ".sdlc/templates/verification.md": "65e5d0142dae691103b19eb7ec9466bb5fe67cd2933e6394975cce64b96faa6e",
     ".sdlc/tools.json": "3c21a4130572b539bb48856dfc2e953bebe4d1d33ade52726063ff59d0849f6e",
     "CLAUDE.md": "fca4ef7d1a297df5bb852722803f357a8e45d06477ac22d8b2b344b89f19167d",
-    "package.json": "39d5674698bfaf55703f51b917db8a5af31dcd24297eb963bf9806b9522e9818",
+    "package.json": "e0c89ea353ed5507c740da981c86d9a941517d6ee21035f0a63e1fd75bd8b10b",
     "scripts/approve.mjs": "d5cc3e29327ff34946a5b8e5e1c0715312cbc5eb671c6835a5b7ca4a0252864e",
     "scripts/assess.mjs": "3ea21a800fe61ac113392fdf855bcd6eaa441de2b6d7da25eb24950c4dfe9eb5",
     "scripts/change.mjs": "b0f03297f66e4229ef157bb9e0bbbf149e3db474ef79d07bc7d8b2ee2615158c",
     "scripts/control-seal.mjs": "e2eb9137bf7ab9b0c02ec884f0cfad67b0b8073a621ed9381b42292165c4fab7",
     "scripts/gates.mjs": "89bf2d26e4b3173caa275712117389f9b2113c616d3a71fd43e855a491f9bd2c",
+    "scripts/leak-scan.mjs": "cde1fd505f06262d275f7cb6987eefedfc1acbb0ec9d35ef8f11267f44d54fc3",
     "scripts/lib/approval.mjs": "0b4bc88c6e6c26b51c3c2947469f6a8e1c83787b12b1524e68fc0f80fc740e6d",
     "scripts/lib/gates-v0.mjs": "7bceac4b0c86a071040c46509ed43b8eef2d3450359ab70fde1758f04f92081b",
     "scripts/lib/gates.mjs": "e22f6873f208c51801e6dad845d38b69ef6d5678381a5fee69825378497db69b",
@@ -65,6 +67,7 @@
     "scripts/unit/fixtures/v1-change/verification.md": "248e11da75921f0884979e83efa4ed23de378ae75de014a25e55f65a499859bd",
     "scripts/unit/framework.test.mjs": "156fa9d358542765f0f559dc6e22bea258b462da512a744a4ec0aabb22086e3e",
     "scripts/unit/helpers.mjs": "61e94310397c350dd70c288c620d2889cbf908e548eafdbf00e0e426c69727b1",
+    "scripts/unit/leak-scan.test.mjs": "11459542815ec45a574e9de9edd89f0511b6303e9835c2be5e9e4d4efa6b3cad",
     "scripts/unit/review-findings.test.mjs": "8a1ae634ce95760d50886ffec0bb595662b09bd0446f4dd548410fb4fc589820",
     "scripts/unit/scenarios.test.mjs": "b9639f8b18b3288b15a4686823663379c7b83f09deae6175d2c687ad3503bcb7",
     "sdlc.policy.json": "26dd7e980d4acc6b7171944768466e7d3d4bed49a8dca1100bdadc2187fb0d46"
